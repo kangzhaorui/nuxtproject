@@ -47,13 +47,26 @@ export default {
   methods: {
     godetail(value) {
       this.$router.push({
-        name:'main-id',
-        params:{
-          id:value.id
+        name: "main-id",
+        params: {
+          id: value.id
         }
-      })
+      });
       console.log("------", value);
+    },
+    fetchDate() {
+      this.$axios
+        .post("https://api.yuedu.best/yuedu/getChapterList", {
+          tocUrl: "https://m.shouda8.com/36610/",
+          bookSourceUrl: "https://m.shouda8.com"
+        })
+        .then(res => {
+          console.log("res="+res);
+        });
     }
+  },
+  mounted: function() {
+    this.fetchDate();
   },
   components: {
     subtitle
