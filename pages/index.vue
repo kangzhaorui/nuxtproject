@@ -54,16 +54,16 @@ export default {
       });
       console.log("------", value);
     },
-    fetchDate() {
-      this.$axios
-        .post("https://api.yuedu.best/yuedu/getChapterList", {
-          tocUrl: "https://m.shouda8.com/36610/",
-          bookSourceUrl: "https://m.shouda8.com"
-        })
-        .then(res => {
-          console.log("res="+res);
-        });
-    }
+    // fetchDate() {
+    //   this.$axios
+    //     .post("https://api.yuedu.best/yuedu/getChapterList", {
+    //       tocUrl: "https://m.shouda8.com/36610/",
+    //       bookSourceUrl: "https://m.shouda8.com"
+    //     })
+    //     .then(res => {
+    //       console.log("res="+res);
+    //     });
+    // }
   },
   mounted: function() {
     this.fetchDate();
