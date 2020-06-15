@@ -18,7 +18,40 @@
 
 <script>
 import subtitle from "../../components/subtitle";
+import axios from "axios";
 export default {
+  async asyncData() {
+    const { data } = await axios.post(
+      "https://api.yuedu.best/yuedu/searchBook",
+      {
+        key: "剑来",
+        bookSourceUrl: "https://m.shouda8.com"
+      }
+    );
+    const data1 = data;
+    const datacon = await axios.post(
+      "https://api.yuedu.best/yuedu/getBookInfo",
+      {
+        bookUrl: data[0].bookUrl,
+        bookSourceUrl: "https://m.shouda8.com"
+      }
+    );
+    const datdainfo = data;
+    const dataChapterList = await axios.post(
+      "https://api.yuedu.best/yuedu/getChapterList",
+      {
+        tocUrl: datacon.data.tocUrl,
+        bookSourceUrl: "https://m.shouda8.com"
+      }
+    );
+    return { 
+    subtitledata:{
+       title: datacon.name,
+       subtitle: datacon.author
+    },
+    chapterList:dataChapterList.data
+    };
+  },
   data() {
     return {
       subtitledata: {},
@@ -34,44 +67,45 @@ export default {
         }
       });
     },
-    search() {
-      this.$axios
-        .post("https://api.yuedu.best/yuedu/searchBook", {
-          key: "剑来",
-          bookSourceUrl: "https://m.shouda8.com"
-        })
-        .then(res => {
-          let searchResult = res.data[0];
-          this.getBookInfo(searchResult.bookUrl);
-        });
-    },
-    getBookInfo(bookUrl) {
-      this.$axios
-        .post("https://api.yuedu.best/yuedu/getBookInfo", {
-          bookUrl: bookUrl,
-          bookSourceUrl: "https://m.shouda8.com"
-        })
-        .then(res => {
-          let chapter = res.data;
 
-          this.subtitledata = {
-            title: chapter.name,
-            subtitle: chapter.author
-          };
-          this.getChapter(chapter.tocUrl);
-        });
-    },
-    getChapter(tocUrl) {
-      this.$axios
-        .post("https://api.yuedu.best/yuedu/getChapterList", {
-          tocUrl: tocUrl,
-          bookSourceUrl: "https://m.shouda8.com"
-        })
-        .then(res => {
-          this.chapterList = res.data;
-          console.log(this.chapterList);
-        });
-    }
+    // search() {
+    //   this.$axios
+    //     .post("https://api.yuedu.best/yuedu/searchBook", {
+    //       key: "剑来",
+    //       bookSourceUrl: "https://m.shouda8.com"
+    //     })
+    //     .then(res => {
+    //       let searchResult = res.data[0];
+    //       this.getBookInfo(searchResult.bookUrl);
+    //     });
+    // },
+    // getBookInfo(bookUrl) {
+    //   this.$axios
+    //     .post("https://api.yuedu.best/yuedu/getBookInfo", {
+    //       bookUrl: bookUrl,
+    //       bookSourceUrl: "https://m.shouda8.com"
+    //     })
+    //     .then(res => {
+    //       let chapter = res.data;
+
+    //       this.subtitledata = {
+    //         title: chapter.name,
+    //         subtitle: chapter.author
+    //       };
+    //       this.getChapter(chapter.tocUrl);
+    //     });
+    // },
+    // getChapter(tocUrl) {
+    //   this.$axios
+    //     .post("https://api.yuedu.best/yuedu/getChapterList", {
+    //       tocUrl: tocUrl,
+    //       bookSourceUrl: "https://m.shouda8.com"
+    //     })
+    //     .then(res => {
+    //       this.chapterList = res.data;
+    //       console.log(this.chapterList);
+    //     });
+    // }
   },
   components: {
     subtitle
@@ -86,7 +120,7 @@ export default {
     console.log("id---", this.$route.params.id);
   },
   mounted() {
-    this.search();
+    // this.search();
   }
 };
 </script>
