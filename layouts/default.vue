@@ -17,13 +17,13 @@
               text-color="#000"
               :router="true"
             >
-              <el-submenu index="1">
+              <!-- <el-submenu index="1">
                 <template slot="title">盗墓笔记全集</template>
                 <el-menu-item index="2-1">盗墓笔记1：七星鲁王</el-menu-item>
                 <el-menu-item index="2-2">选项2</el-menu-item>
                 <el-menu-item index="2-3">选项3</el-menu-item>
-              </el-submenu>
-              <el-menu-item   v-for="(item,index)  in menuData" :key="index" :index="item.itempath+'/'+item.id">{{item.title}}</el-menu-item>
+              </el-submenu> -->
+              <!-- <el-menu-item   v-for="(item,index)  in menuData" :key="index" :index="item.itempath+'/'+item.id">{{item.title}}</el-menu-item> -->
               <!-- <el-menu-item index="4">藏海花</el-menu-item> -->
             </el-menu>
           </div>

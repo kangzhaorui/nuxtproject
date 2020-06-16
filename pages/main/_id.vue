@@ -28,7 +28,6 @@ export default {
         bookSourceUrl: "https://m.shouda8.com"
       }
     );
-    const data1 = data;
     const datacon = await axios.post(
       "https://api.yuedu.best/yuedu/getBookInfo",
       {
@@ -36,7 +35,6 @@ export default {
         bookSourceUrl: "https://m.shouda8.com"
       }
     );
-    const datdainfo = data;
     const dataChapterList = await axios.post(
       "https://api.yuedu.best/yuedu/getChapterList",
       {
