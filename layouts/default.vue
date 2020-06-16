@@ -5,7 +5,8 @@
         <div class="container">
           <div class="container-box">
              <div class="header-logo" >
-            <img src="http://www.daomubiji.com/uploads/2017/02/daomubiji.png" alt  @click="gohome"  />
+            <img src="https://v2.jinrishici.com/one.svg" alt  @click="gohome"  />
+
           </div>
           <div class="sitenav">
             <el-menu

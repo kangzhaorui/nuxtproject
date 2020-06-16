@@ -7,7 +7,7 @@
       <ul class="titleList">
         <li
           v-for="(item,index ) in  chapterList"
-          :class="index>2?'linghtclass':'' "
+          class="linghtclass"
           :key="index"
           @click="godetail(item)"
         >{{item.title}}</li>
@@ -41,11 +41,12 @@ export default {
         tocUrl: datacon.data.tocUrl,
         bookSourceUrl: "https://m.shouda8.com"
       }
-    );
+    );    
+    console.log(datacon.data);
     return { 
     subtitledata:{
-       title: datacon.name,
-       subtitle: datacon.author
+       title: datacon.data.name,
+       subtitle: datacon.data.author
     },
     chapterList:dataChapterList.data
     };
