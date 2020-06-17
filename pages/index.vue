@@ -42,7 +42,7 @@ export default {
         bookSourceUrl: "https://m.shouda8.com"
       }
     );    
-    console.log(datacon.data);
+    // console.log(dataChapterList.data);
     return { 
     subtitledata:{
        title: datacon.data.name,
@@ -59,13 +59,15 @@ export default {
   },
   methods: {
     godetail(value) {
+      console.log(value);
+      
       this.$router.push({
-        name: "main-id",
+        name: "details",
         params: {
-          id: value.id
+          tocUrl: value.url
         }
       });
-      console.log("------", value);
+      // console.log("------", value);
     },
     // fetchDate() {
     //   this.$axios
