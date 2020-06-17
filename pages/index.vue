@@ -1,8 +1,8 @@
 <template>
     <div>
-    <div class="subtitle">
+    <!-- <div class="subtitle">
       <subtitle :titledata="subtitledata"></subtitle>
-    </div>
+    </div> -->
     <div>
       <ul class="titleList">
         <li

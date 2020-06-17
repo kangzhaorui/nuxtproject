@@ -91,7 +91,6 @@ export default {
 }
 .container {
   max-width: 1200px;
-  height: 10vh;
   text-align: left;
   position: relative;
   background: #f6f1e7;
