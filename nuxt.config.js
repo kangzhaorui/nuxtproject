@@ -58,5 +58,9 @@ module.exports = {
     */
     extend (config, ctx) {
     }
+  },
+  env: {
+    bookname: process.env.bookname || '剑来',
+    bookSourceUrl: process.env.bookSourceUrl || 'https://m.shouda8.com'
   }
 }

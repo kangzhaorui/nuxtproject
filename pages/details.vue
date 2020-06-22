@@ -18,7 +18,7 @@ import VueMeta from "vue-meta";
 export default {
   head () {
     return {
-      title: this.title + "-剑来",
+      title: this.title + "-" + process.env.bookname,
       meta: [
         { hid: 'description', name: 'description', content: 'My custom description' }
       ]
@@ -26,11 +26,13 @@ export default {
   },
   async asyncData({ query }) {
     console.log(query);
+    console.log(process.env.bookSourceUr);
+    
     const content = await axios.post(
       "https://api.yuedu.best/yuedu/getContent",
       {
         bookChapterUrl: query.tocUrl,
-        bookSourceUrl: "https://m.shouda8.com"
+        bookSourceUrl: process.env.bookSourceUrl
       }
     );
 

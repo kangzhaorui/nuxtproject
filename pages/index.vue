@@ -26,32 +26,36 @@ import VueMeta from "vue-meta";
 export default {
   head () {
     return {
-      title: "剑来",
+      title: process.env.bookname,
       meta: [
         { hid: 'description', name: 'description', content: 'My custom description' }
       ]
     }
   },
   async asyncData() {
+    console.log(process.env.bookname);
+    console.log(process.env.bookSourceUrl);
+
+    
     const { data } = await axios.post(
       "https://api.yuedu.best/yuedu/searchBook",
       {
-        key: "剑来",
-        bookSourceUrl: "https://m.shouda8.com"
+        key: process.env.bookname,
+        bookSourceUrl: process.env.bookSourceUrl
       }
     );
     const datacon = await axios.post(
       "https://api.yuedu.best/yuedu/getBookInfo",
       {
         bookUrl: data[0].bookUrl,
-        bookSourceUrl: "https://m.shouda8.com"
+        bookSourceUrl: process.env.bookSourceUrl
       }
     );
     const dataChapterList = await axios.post(
       "https://api.yuedu.best/yuedu/getChapterList",
       {
         tocUrl: datacon.data.tocUrl,
-        bookSourceUrl: "https://m.shouda8.com"
+        bookSourceUrl: process.env.bookSourceUrl
       }
     );
     // console.log(dataChapterList.data);
@@ -79,11 +83,10 @@ export default {
           tocUrl: value.url
         }
       });
-      // console.log("------", value);
     }
   },
   mounted: function() {
-    // this.fetchDate();
+
   },
   components: {
     subtitle
