@@ -1,16 +1,19 @@
 <template>
-    <div>
-    <!-- <div class="subtitle">
+  <div>
+    <div class="subtitle">
       <subtitle :titledata="subtitledata"></subtitle>
-    </div> -->
+    </div>
+    <p class="intro">{{intro}}</p>
     <div>
-      <ul class="titleList">
+      <ul class="chapterList">
         <li
           v-for="(item,index ) in  chapterList"
           class="linghtclass"
           :key="index"
           @click="godetail(item)"
-        >{{item.title}}</li>
+        >
+          <p>{{item.title}}</p>
+        </li>
       </ul>
     </div>
   </div>
@@ -19,7 +22,16 @@
 <script>
 import subtitle from "../components/subtitle";
 import axios from "axios";
+import VueMeta from "vue-meta";
 export default {
+  head () {
+    return {
+      title: "剑来",
+      meta: [
+        { hid: 'description', name: 'description', content: 'My custom description' }
+      ]
+    }
+  },
   async asyncData() {
     const { data } = await axios.post(
       "https://api.yuedu.best/yuedu/searchBook",
@@ -41,14 +53,15 @@ export default {
         tocUrl: datacon.data.tocUrl,
         bookSourceUrl: "https://m.shouda8.com"
       }
-    );    
+    );
     // console.log(dataChapterList.data);
-    return { 
-    subtitledata:{
-       title: datacon.data.name,
-       subtitle: datacon.data.author
-    },
-    chapterList:dataChapterList.data
+    return {
+      subtitledata: {
+        title: datacon.data.name,
+        subtitle: datacon.data.author
+      },
+      intro: datacon.data.intro,
+      chapterList: dataChapterList.data
     };
   },
   data() {
@@ -59,26 +72,15 @@ export default {
   },
   methods: {
     godetail(value) {
-      console.log(value);
-      
       this.$router.push({
         name: "details",
-        params: {
+        query: {
+          title: value.title,
           tocUrl: value.url
         }
       });
       // console.log("------", value);
-    },
-    // fetchDate() {
-    //   this.$axios
-    //     .post("https://api.yuedu.best/yuedu/getChapterList", {
-    //       tocUrl: "https://m.shouda8.com/36610/",
-    //       bookSourceUrl: "https://m.shouda8.com"
-    //     })
-    //     .then(res => {
-    //       console.log("res="+res);
-    //     });
-    // }
+    }
   },
   mounted: function() {
     // this.fetchDate();
@@ -91,19 +93,27 @@ export default {
 <style  lang="scss" scoped>
 .subtitle {
   width: 60%;
-  margin: 0 auto 400px auto;
+  margin: 0 auto 50px auto;
 }
-.titleList {
+.chapterList {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   .linghtclass {
     line-height: 4;
+    text-align: center;
   }
   li {
     width: 33%;
     list-style: none;
   }
+  p {
+    cursor: pointer;
+    display: inline;
+  }
+}
+.intro {
+  margin: 20px;
 }
 </style>
