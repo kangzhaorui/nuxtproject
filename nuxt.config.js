@@ -61,6 +61,7 @@ module.exports = {
   },
   env: {
     bookname: process.env.bookname || '剑来',
-    bookSourceUrl: process.env.bookSourceUrl || 'https://m.shouda8.com'
+    bookSourceUrl: process.env.bookSourceUrl || 'https://m.shouda8.com',
+    api: process.env.api || 'https://api.yuedu.best'
   }
 }

@@ -41,21 +41,21 @@ export default {
       console.log("alldate=" + store.state.alldate.chapterList.length);
     } else {
       const { data } = await axios.post(
-        "https://api.yuedu.best/yuedu/searchBook",
+        process.env.api + "/yuedu/searchBook",
         {
           key: process.env.bookname,
           bookSourceUrl: process.env.bookSourceUrl
         }
       );
       const datacon = await axios.post(
-        "https://api.yuedu.best/yuedu/getBookInfo",
+        process.env.api + "/yuedu/getBookInfo",
         {
           bookUrl: data[0].bookUrl,
           bookSourceUrl: process.env.bookSourceUrl
         }
       );
       const dataChapterList = await axios.post(
-        "https://api.yuedu.best/yuedu/getChapterList",
+        process.env.api + "/yuedu/getChapterList",
         {
           tocUrl: datacon.data.tocUrl,
           bookSourceUrl: process.env.bookSourceUrl
@@ -72,7 +72,7 @@ export default {
       store.commit("setAlldate", alldate);
     }
     const content = await axios.post(
-      "https://api.yuedu.best/yuedu/getContent",
+      process.env.api + "/yuedu/getContent",
       {
         bookChapterUrl: query.tocUrl,
         bookSourceUrl: process.env.bookSourceUrl

@@ -43,22 +43,16 @@ export default {
     if (store.state.alldate != null) {
       console.log("alldate=" + store.state.alldate.chapterList.length);
     } else {
-      const { data } = await axios.post(
-        "https://api.yuedu.best/yuedu/searchBook",
-        {
-          key: process.env.bookname,
-          bookSourceUrl: process.env.bookSourceUrl
-        }
-      );
-      const datacon = await axios.post(
-        "https://api.yuedu.best/yuedu/getBookInfo",
-        {
-          bookUrl: data[0].bookUrl,
-          bookSourceUrl: process.env.bookSourceUrl
-        }
-      );
+      const { data } = await axios.post(process.env.api + "/yuedu/searchBook", {
+        key: process.env.bookname,
+        bookSourceUrl: process.env.bookSourceUrl
+      });
+      const datacon = await axios.post(process.env.api + "/yuedu/getBookInfo", {
+        bookUrl: data[0].bookUrl,
+        bookSourceUrl: process.env.bookSourceUrl
+      });
       const dataChapterList = await axios.post(
-        "https://api.yuedu.best/yuedu/getChapterList",
+        process.env.api + "/yuedu/getChapterList",
         {
           tocUrl: datacon.data.tocUrl,
           bookSourceUrl: process.env.bookSourceUrl
