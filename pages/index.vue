@@ -24,49 +24,57 @@ import subtitle from "../components/subtitle";
 import axios from "axios";
 import VueMeta from "vue-meta";
 export default {
-  head () {
+  head() {
     return {
       title: process.env.bookname,
       meta: [
-        { hid: 'description', name: 'description', content: 'My custom description' }
+        {
+          hid: "description",
+          name: "description",
+          content: "My custom description"
+        }
       ]
-    }
+    };
   },
-  async asyncData() {
+  async asyncData({ store }) {
     console.log(process.env.bookname);
     console.log(process.env.bookSourceUrl);
 
-    
-    const { data } = await axios.post(
-      "https://api.yuedu.best/yuedu/searchBook",
-      {
-        key: process.env.bookname,
-        bookSourceUrl: process.env.bookSourceUrl
-      }
-    );
-    const datacon = await axios.post(
-      "https://api.yuedu.best/yuedu/getBookInfo",
-      {
-        bookUrl: data[0].bookUrl,
-        bookSourceUrl: process.env.bookSourceUrl
-      }
-    );
-    const dataChapterList = await axios.post(
-      "https://api.yuedu.best/yuedu/getChapterList",
-      {
-        tocUrl: datacon.data.tocUrl,
-        bookSourceUrl: process.env.bookSourceUrl
-      }
-    );
-    // console.log(dataChapterList.data);
-    return {
-      subtitledata: {
-        title: datacon.data.name,
-        subtitle: datacon.data.author
-      },
-      intro: datacon.data.intro,
-      chapterList: dataChapterList.data
-    };
+    if (store.state.alldate != null) {
+      console.log("alldate=" + store.state.alldate.chapterList.length);
+    } else {
+      const { data } = await axios.post(
+        "https://api.yuedu.best/yuedu/searchBook",
+        {
+          key: process.env.bookname,
+          bookSourceUrl: process.env.bookSourceUrl
+        }
+      );
+      const datacon = await axios.post(
+        "https://api.yuedu.best/yuedu/getBookInfo",
+        {
+          bookUrl: data[0].bookUrl,
+          bookSourceUrl: process.env.bookSourceUrl
+        }
+      );
+      const dataChapterList = await axios.post(
+        "https://api.yuedu.best/yuedu/getChapterList",
+        {
+          tocUrl: datacon.data.tocUrl,
+          bookSourceUrl: process.env.bookSourceUrl
+        }
+      );
+      const alldate = {
+        subtitledata: {
+          title: datacon.data.name,
+          subtitle: datacon.data.author
+        },
+        intro: datacon.data.intro,
+        chapterList: dataChapterList.data
+      };
+      store.commit("setAlldate", alldate);
+      return alldate;
+    }
   },
   data() {
     return {
@@ -85,9 +93,7 @@ export default {
       });
     }
   },
-  mounted: function() {
-
-  },
+  mounted: function() {},
   components: {
     subtitle
   }
