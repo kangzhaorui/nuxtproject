@@ -6,9 +6,9 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
-    environment:
-      - bookname=人道天堂
-      - bookSourceUrl=https://m.shouda8.com
+    # environment:
+    #   - bookname=人道天堂
+    #   - bookSourceUrl=https://m.shouda8.com
   # service:
   #   image: qingmo/lightink-server:latest
   #   container_name: lightink-server
