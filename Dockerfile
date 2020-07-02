@@ -10,4 +10,4 @@ RUN yarn install
 
 EXPOSE ${PORT}
 
-CMD ["yarn" "run" "start"]
+CMD ["yarn", "run", "start"]
