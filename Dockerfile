@@ -7,6 +7,7 @@ ADD . ${WORK_DIR}
 WORKDIR ${WORK_DIR}
 
 RUN yarn install
+RUN yarn run build
 
 EXPOSE ${PORT}
 
